@@ -28,10 +28,19 @@ public class Suma {
     JTextField textF_n1 = new JTextField();
     JTextField textF_n2 = new JTextField();
 
+    double [] vector1 = new double[10];
+    double [] vector2 = new double[10];
+    int i = 0, j = 0;
+
     void metodo () {
-        Color Fondo1 = new Color(58,58,58); //Dark gray
+        // Paleta de color principal
+        Color Cereza = new Color(246, 48, 73);
+        Color Carmesi = new Color(208, 39, 82);
+        Color Magenta = new Color(138, 36, 75);
+        Color NegroAzul = new Color(17, 31, 53);
+        Color Fondo1 = new Color(58,58,58);
         Color Fondo2 = new Color(72,72,72);
-        frame.getContentPane().setBackground(Fondo1); // Color de fondo
+        frame.getContentPane().setBackground(Cereza); // Color de fondo
         frame.add(new JLabel("TECNOLOGICO DE COLIMA"));
 
         frame.add(etiquetaNum1);
@@ -51,7 +60,7 @@ public class Suma {
         etiquetaNum2.setBounds(70,230,370,80);
         textF_n2.setBounds(440,230,300,80);
 
-        ETQresultado1.setBounds(70,300,370,80);
+        ETQresultado1.setBounds(70,330,370,80);
         ETQresultado2.setBounds(70,380,370,80);
 
         botonSumar.setBounds(0,500,200,80);
@@ -61,8 +70,8 @@ public class Suma {
 
         //-- Formato --
         // Inicia el sector de dar formato a la GUI
-        Color CTexto1 = Color.WHITE;
-        Color CTexto2 = Color.CYAN;
+        Color CTexto1 = NegroAzul;
+        Color CTexto2 = NegroAzul;
 
         // Color de fuente
         etiquetaNum1.setForeground(CTexto1);
@@ -77,7 +86,9 @@ public class Suma {
         ETQresultado1.setFont(FontEtiquetas1);
         ETQresultado2.setFont(FontEtiquetas1);
         textF_n1.setFont(FontEtiquetas1);
+        textF_n1.setHorizontalAlignment(JTextField.CENTER);
         textF_n2.setFont(FontEtiquetas1);
+        textF_n2.setHorizontalAlignment(JTextField.CENTER);
 
         Font FontBotones = new Font("Arial",Font.BOLD,15);
         botonSumar.setFont(FontBotones);
@@ -85,7 +96,16 @@ public class Suma {
         botonLimpiar.setFont(FontBotones);
         botonSalir.setFont(FontBotones);
 
+        // Colores de fondo
+        textF_n1.setBackground(Carmesi);
+        textF_n2.setBackground(Carmesi);
+        botonSumar.setBackground(Carmesi);
+        botonRaiz.setBackground(Carmesi);
+        botonLimpiar.setBackground(Carmesi);
+        botonSalir.setBackground(Carmesi);
+
         // Acciones
+        // SUMA
         botonSumar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -94,10 +114,17 @@ public class Suma {
                 n1 = Double.parseDouble(textF_n1.getText());
                 n2 = Double.parseDouble(textF_n2.getText());
                 suma = n1 + n2;
+                vector1[i] = suma;
+                if (i < vector1.length) i++;
+                String cadena = " ";
+                for (int k = 0; k < i; k++) {
+                    cadena = cadena + vector1[k] + " ";
+                }
                 ETQresultado1.setText("La suma es " + suma);
-                ETQresultado2.setText("");
+                ETQresultado2.setText("Vector" + cadena);
             }
         });
+        // RAIZ
         botonRaiz.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

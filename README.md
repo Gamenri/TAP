@@ -1,6 +1,11 @@
 # Estructura general
 
 - TAP
-  - /U1<br>
-      - /Suma<br>
-        - /Suma.java<br>
+  - /U1
+      - /Suma
+        - /Suma.java
+      - /Calculadora
+        - /Main.java
+        - /Calculadora.java
+        - /Operaciones.java
+        - /DocumentacionCalc.md

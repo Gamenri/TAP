@@ -17,7 +17,7 @@ public class Calculadora {
     }
 
     // ===CREAR ELEMENTOS===
-    // 11 botones
+    // 12 botones
     JButton botonSuma = new JButton("Suma");
     JButton botonResta = new JButton("Resta");
     JButton botonMultiplicacion = new JButton("Multiplicacion");
@@ -29,14 +29,17 @@ public class Calculadora {
     JButton botonFactorial = new JButton("Factorial");
     JButton botonVolumen = new JButton("Volumen");
     JButton botonCalcular = new JButton("Calcular");
+    JButton botonLimpiar = new JButton("Limpiar");
 
-    // 6 etiquetas
+    // 7 etiquetas
     JLabel TextoSuperior = new JLabel("SELECCIONE OPERACION");
+    JLabel TextoLateral = new JLabel("Historial");
     JLabel Texto1 = new JLabel("VALOR 1");
     JLabel Texto2 = new JLabel("VALOR 2");
     JLabel Texto3 = new JLabel("VALOR 3");
     JLabel Resultado = new JLabel("");
     JLabel Operacion = new JLabel("");
+    JLabel[] Historial = new JLabel[10];
 
     // 3 campos de texto
     JTextField Campo1 = new JTextField();
@@ -56,13 +59,20 @@ public class Calculadora {
         App.add(botonFactorial);
         App.add(botonVolumen);
         App.add(botonCalcular);
+        App.add(botonLimpiar);
 
         App.add(TextoSuperior);
+        App.add(TextoLateral);
         App.add(Texto1);
         App.add(Texto2);
         App.add(Texto3);
         App.add(Resultado);
         App.add(Operacion);
+
+        for (int i = 0; i< Historial.length;i++){
+            Historial[i] = new JLabel("---");
+            App.add(Historial[i]);
+        }
 
         App.add(Campo1);
         App.add(Campo2);
@@ -164,6 +174,30 @@ public class Calculadora {
                 (anchoBotones1*5),
                 60
         );
+        TextoLateral.setBounds(
+                TextoSuperior.getX()+TextoSuperior.getWidth()+espaciado,
+                TextoSuperior.getHeight(),
+                anchoEtiquetas1,
+                altoEtiquetas1
+        );
+
+        JLabel j = TextoLateral;
+        for (JLabel Etiqueta: Historial){
+            Etiqueta.setBounds(
+                    TextoLateral.getX(),
+                    j.getY()+j.getHeight(),
+                    anchoEtiquetas1+100,
+                    altoEtiquetas1
+            );
+            j = Etiqueta;
+        }
+        botonLimpiar.setBounds(
+                TextoLateral.getX(),
+                Historial[Historial.length-1].getY()+altoEtiquetas1,
+                anchoBotones1,
+                altoBotones1
+        );
+
         Operacion.setBounds(
                 limXBotones1,
                 limYEtiquetas1+(altoEtiquetas1*3)+(espaciado/3),
@@ -222,6 +256,7 @@ public class Calculadora {
         TextoSuperior.setFont(FTitulo);
         TextoSuperior.setHorizontalAlignment(JLabel.CENTER);
 
+        TextoLateral.setFont(FTitulo);
         Resultado.setFont(FInfo);
         Resultado.setHorizontalAlignment(JLabel.CENTER);
 
@@ -230,6 +265,7 @@ public class Calculadora {
 
         // ===FUNCIONES===
         // Botones
+
         botonCalcular.addActionListener(c ->{
             switch (Operando) {
                 case "SUMA" -> OP.Suma(Campo1,Campo2,Resultado);
@@ -242,9 +278,13 @@ public class Calculadora {
                 case "POTENCIA" -> OP.Potencia(Campo1,Campo2,Resultado);
                 case "FACTORIAL" -> OP.Factorial(Campo1,Resultado);
                 case "VOLUMEN" -> OP.Volumen(Campo1,Campo2,Campo3,Resultado);
-                default -> {
-                    Resultado.setText("No operacion seleccionada");
-                }
+                default -> Resultado.setText("No operacion seleccionada");
+            }
+            ModifHistorial(Historial,Resultado);
+        });
+        botonLimpiar.addActionListener(cl->{
+            for (JLabel Etiqueta:Historial){
+                Etiqueta.setText("---");
             }
         });
 
@@ -308,6 +348,7 @@ public class Calculadora {
             Operando = "VOLUMEN";
             Operacion.setText("OPERACION ELEGIDA: " + Operando);
         });
+
         // ===VISIBILIDAD===
         App.setVisible(true);
 
@@ -318,5 +359,14 @@ public class Calculadora {
         Campo1.setVisible(false);
         Campo2.setVisible(false);
         Campo3.setVisible(false);
+    }
+
+    void ModifHistorial(JLabel[] Historial, JLabel Origen) {
+        for (int i = 0; i < Historial.length; i++) {
+            if (Historial[i].getText().equals("---")){
+                Historial[i].setText(Origen.getText());
+                return;
+            }
+        }
     }
 }

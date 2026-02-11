@@ -5,6 +5,8 @@ import java.awt.*;
 
 public class Calculadora {
     JFrame App = new JFrame();
+    private String Operando = "";
+    Operaciones OP = new Operaciones();
 
     Calculadora() {
         App.setTitle("Calculadora");
@@ -28,12 +30,13 @@ public class Calculadora {
     JButton botonVolumen = new JButton("Volumen");
     JButton botonCalcular = new JButton("Calcular");
 
-    // 5 etiquetas
+    // 6 etiquetas
     JLabel TextoSuperior = new JLabel("SELECCIONE OPERACION");
     JLabel Texto1 = new JLabel("VALOR 1");
     JLabel Texto2 = new JLabel("VALOR 2");
     JLabel Texto3 = new JLabel("VALOR 3");
-    JLabel Resultado = new JLabel("Resultado");
+    JLabel Resultado = new JLabel("");
+    JLabel Operacion = new JLabel("");
 
     // 3 campos de texto
     JTextField Campo1 = new JTextField();
@@ -59,6 +62,7 @@ public class Calculadora {
         App.add(Texto2);
         App.add(Texto3);
         App.add(Resultado);
+        App.add(Operacion);
 
         App.add(Campo1);
         App.add(Campo2);
@@ -158,7 +162,14 @@ public class Calculadora {
                 limXBotones1,
                 30,
                 (anchoBotones1*5),
-                60);
+                60
+        );
+        Operacion.setBounds(
+                limXBotones1,
+                limYEtiquetas1+(altoEtiquetas1*3)+(espaciado/3),
+                wBloqueBotones,
+                espaciado/3
+        );
         Texto1.setBounds(
                 limXEtiquetas1,
                 limYEtiquetas1,
@@ -178,9 +189,9 @@ public class Calculadora {
                 altoEtiquetas1
         );
         Resultado.setBounds(
-                botonCalcular.getX()+(botonCalcular.getWidth()/2)-(anchoEtiquetas1/2),
+                botonCalcular.getX()+(botonCalcular.getWidth()/2)-(wBloqueBotones/2),
                 botonCalcular.getY()+botonCalcular.getHeight()+espaciado,
-                anchoEtiquetas1,
+                wBloqueBotones,
                 altoEtiquetas1
                 );
 
@@ -205,10 +216,107 @@ public class Calculadora {
         );
 
         // ===FORMATO===
-        TextoSuperior.setFont(new Font("Arial", Font.BOLD,30));
+        Font FTitulo = new Font("Arial", Font.BOLD,30);
+        Font FInfo = new Font("Arial", Font.BOLD,20);
+
+        TextoSuperior.setFont(FTitulo);
         TextoSuperior.setHorizontalAlignment(JLabel.CENTER);
 
+        Resultado.setFont(FInfo);
+        Resultado.setHorizontalAlignment(JLabel.CENTER);
+
+        Operacion.setFont(new Font("Arial", Font.BOLD,espaciado/3));
+        Operacion.setHorizontalAlignment(JLabel.CENTER);
+
+        // ===FUNCIONES===
+        // Botones
+        botonCalcular.addActionListener(c ->{
+            switch (Operando) {
+                case "SUMA" -> OP.Suma(Campo1,Campo2,Resultado);
+                case "RESTA" -> OP.Resta(Campo1,Campo2,Resultado);
+                case "MULTIPLICACION" -> OP.Multiplicacion(Campo1,Campo2,Resultado);
+                case "DIVISION" -> OP.Division(Campo1,Campo2,Resultado);
+                case "RAIZ" -> OP.Raiz(Campo1,Resultado);
+                case "MAYOR" -> OP.Mayor(Campo1,Campo2,Resultado);
+                case "MENOR" -> OP.Menor(Campo1,Campo2,Resultado);
+                case "POTENCIA" -> OP.Potencia(Campo1,Campo2,Resultado);
+                case "FACTORIAL" -> OP.Factorial(Campo1,Resultado);
+                case "VOLUMEN" -> OP.Volumen(Campo1,Campo2,Campo3,Resultado);
+                default -> {
+                    Resultado.setText("No operacion seleccionada");
+                }
+            }
+        });
+
+        botonSuma.addActionListener(sm->{
+            Texto1.setVisible(true); Texto2.setVisible(true); Texto3.setVisible(false);
+            Campo1.setVisible(true); Campo2.setVisible(true); Campo3.setVisible(false);
+            Operando = "SUMA";
+            Operacion.setText("OPERACION ELEGIDA: " + Operando);
+        });
+        botonResta.addActionListener(rt->{
+            Texto1.setVisible(true); Texto2.setVisible(true); Texto3.setVisible(false);
+            Campo1.setVisible(true); Campo2.setVisible(true); Campo3.setVisible(false);
+            Operando = "RESTA";
+            Operacion.setText("OPERACION ELEGIDA: " + Operando);
+        });
+        botonMultiplicacion.addActionListener(mu->{
+            Texto1.setVisible(true); Texto2.setVisible(true); Texto3.setVisible(false);
+            Campo1.setVisible(true); Campo2.setVisible(true); Campo3.setVisible(false);
+            Operando = "MULTIPLICACION";
+            Operacion.setText("OPERACION ELEGIDA: " + Operando);
+        });
+        botonDividision.addActionListener(dv->{
+            Texto1.setVisible(true); Texto2.setVisible(true); Texto3.setVisible(false);
+            Campo1.setVisible(true); Campo2.setVisible(true); Campo3.setVisible(false);
+            Operando = "DIVISION";
+            Operacion.setText("OPERACION ELEGIDA: " + Operando);
+        });
+        botonRaiz.addActionListener(rz->{
+            Texto1.setVisible(true); Texto2.setVisible(false); Texto3.setVisible(false);
+            Campo1.setVisible(true); Campo2.setVisible(false); Campo3.setVisible(false);
+            Operando = "RAIZ";
+            Operacion.setText("OPERACION ELEGIDA: " + Operando);
+        });
+        botonMayor.addActionListener(my->{
+            Texto1.setVisible(true); Texto2.setVisible(true); Texto3.setVisible(false);
+            Campo1.setVisible(true); Campo2.setVisible(true); Campo3.setVisible(false);
+            Operando = "MAYOR";
+            Operacion.setText("OPERACION ELEGIDA: " + Operando);
+        });
+        botonMenor.addActionListener(mn->{
+            Texto1.setVisible(true); Texto2.setVisible(true); Texto3.setVisible(false);
+            Campo1.setVisible(true); Campo2.setVisible(true); Campo3.setVisible(false);
+            Operando = "MENOR";
+            Operacion.setText("OPERACION ELEGIDA: " + Operando);
+        });
+        botonPotencia.addActionListener(pw->{
+            Texto1.setVisible(true); Texto2.setVisible(true); Texto3.setVisible(false);
+            Campo1.setVisible(true); Campo2.setVisible(true); Campo3.setVisible(false);
+            Operando = "POTENCIA";
+            Operacion.setText("OPERACION ELEGIDA: " + Operando);
+        });
+        botonFactorial.addActionListener(ft->{
+            Texto1.setVisible(true); Texto2.setVisible(false); Texto3.setVisible(false);
+            Campo1.setVisible(true); Campo2.setVisible(false); Campo3.setVisible(false);
+            Operando = "FACTORIAL";
+            Operacion.setText("OPERACION ELEGIDA: " + Operando);
+        });
+        botonVolumen.addActionListener(vo->{
+            Texto1.setVisible(true); Texto2.setVisible(true); Texto3.setVisible(true);
+            Campo1.setVisible(true); Campo2.setVisible(true); Campo3.setVisible(true);
+            Operando = "VOLUMEN";
+            Operacion.setText("OPERACION ELEGIDA: " + Operando);
+        });
         // ===VISIBILIDAD===
         App.setVisible(true);
+
+        Texto1.setVisible(false);
+        Texto2.setVisible(false);
+        Texto3.setVisible(false);
+
+        Campo1.setVisible(false);
+        Campo2.setVisible(false);
+        Campo3.setVisible(false);
     }
 }

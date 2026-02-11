@@ -75,9 +75,9 @@ public class Operaciones {
         a = FieldToDouble(A);
         b = FieldToDouble(B);
 
-        if (a > b) {
+        if (a < b) {
             output.setText(a + " es menor que " + b);
-        } else if (b > a) {
+        } else if (b < a) {
             output.setText(b + " es menor que " + a);
         } else {
             output.setText(a + " y " + b + " son iguales");

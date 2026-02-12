@@ -1,7 +1,5 @@
 package Sumar;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Objects;
 import javax.swing.*;
 
@@ -9,7 +7,7 @@ public class Suma {
     JFrame frame = new JFrame();                                // Creación del Lienzo
 
     Suma () {
-        frame.setTitle("Suma");                                 // Titulo de la ventana
+        frame.setTitle("Suma");                                 // Título de la ventana
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);          // Permite extender la ventana (set to maximizar toda la pantalla)
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // Set to terminar el programa al cerrar la ventana
         frame.setLocationRelativeTo(null);                      // Da control del mouse

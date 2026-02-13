@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 class FrameInicio extends JFrame{
     JFrame frameInicio = new JFrame();
@@ -39,8 +40,9 @@ class FrameInicio extends JFrame{
         botonEntrar.setBounds(300,450,300,80);
         botonEntrar.setFont(new Font("Arial",Font.PLAIN,30));
         botonEntrar.setForeground(Color.red);
+
         frameInicio.setVisible(true);
-        int Intentos = 0;
+
         botonEntrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,13 +50,63 @@ class FrameInicio extends JFrame{
                 if (usuario.contentEquals("123")) {
                     JOptionPane.showMessageDialog(null,"CLAVE CORRECTA");
                     Empleados objeto = new Empleados();
+                    objeto.Metodo();
+                } else {
+                    JOptionPane.showMessageDialog(null,"CLAVE INCORRECTA");
+                    System.exit(0);
+                    dispose();
                 }
             }
         });
     }// Metodo metodoFrameInicio
 }// Clase FrameInicio
 
-public class Empleados {
+public class Empleados extends FrameInicio{
+    JFrame frame = new JFrame();
+    String nombre;
+    String ApellidosPat;
+    String ApellidoMat;
+    String numTarjeta;
+    String rfc;
+    String FechaNac;
+    String puesto;
+    String sueldo;
+    String imagen = "";
+    static int i = 0;
+    static ArrayList <Empleados> lista = new ArrayList<>();
+
+    JButton botonRFC = new JButton();
+    JButton botonSalir = new JButton();
+    JButton botonDer = new JButton();
+    JButton botonIzq = new JButton();
+    JButton botonRegsitrar = new JButton("Guarar");
+    JButton botonNuevo = new JButton("Limpiar");
+    JButton botonModificar = new JButton("MODIFICAR");
+    JButton botonIngresarFoto = new JButton("INGRESAR FOTO");
+    JButton botonElimitar = new JButton("ELIMINAR");
+
+    JLabel foto = new JLabel(new ImageIcon("Foto"));
+
+    JLabel etiquetaNum = new JLabel("Num. Tarjeta");
+    JLabel etiquetaN1 = new JLabel("RFC");
+    JLabel etiquetaN2 = new JLabel("NOMBRE");
+    JLabel fechaNacimiento = new JLabel("Fecha Nacimiento DD//MM//AAAA");
+    JLabel eituqetaN3 = new JLabel("Apellido1");
+    JLabel etiquetaN4 = new JLabel("Apellido2");
+    JLabel JLABELpuesto = new JLabel("Puesto");
+    JLabel ETQsueldo = new JLabel("Sueldo:");
+
+    JTextField etiquetaRFC = new JTextField();
+    JTextField txtNombre = new JTextField();
+    JTextField txtApellidoMat = new JTextField();
+    JTextField txtApellidoPat = new JTextField();
+    JTextField txtNumTar = new JTextField();
+    JTextField fecha = new JTextField();
+
+
+    void Metodo() {
+    }
+
     public static void main(String[] args) {
         FrameInicio login = new FrameInicio();
         login.metodoFrameInicio();

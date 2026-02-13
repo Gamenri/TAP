@@ -28,7 +28,26 @@ public class RFC {
     JLabel Texto2 = new JLabel("Primer Apellido:");
     JLabel Texto3 = new JLabel("Segundo Apellido:");
     JLabel Texto4 = new JLabel("Fecha de nacimiento (DD/MM/AAAA):");
+    JLabel Texto5 = new JLabel("");
 
     // 2 Botones
     JButton Calcular = new JButton();
+
+    public void Armar() {
+        App.add(Nombres);
+        App.add(Apellido1);
+        App.add(Apellido2);
+        App.add(DD);
+        App.add(MM);
+        App.add(AAAA);
+
+        App.add(TextoSuperior);
+        App.add(Texto1);
+        App.add(Texto2);
+        App.add(Texto3);
+        App.add(Texto4);
+        App.add(Texto5);
+
+        App.setVisible(true);
+    }
 }

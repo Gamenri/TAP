@@ -2,13 +2,11 @@ package RFC;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class RFC {
     private final JFrame App = new JFrame();
-    private ArrayList<Registro> Historial = new ArrayList<>();
+    private final ArrayList<Registro> Historial = new ArrayList<>();
     private int Last = -1;
 
     RFC() {
@@ -94,24 +92,22 @@ public class RFC {
         Texto5.setFont(FTextos);
         Texto5.setHorizontalAlignment(JLabel.CENTER);
 
-        Calcular.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if ((Nombres.getText().equals("")) || (Apellido1.getText().equals("")) || (Apellido2.getText().equals("")) ||
-                (DD.getText().equals("")) || (MM.getText().equals("")) || (AAAA.getText().equals(""))) {
-                    JOptionPane.showMessageDialog(null,"Error: Informacion Faltante");
-                } else {
-                    Historial.add(new Registro(
-                            Nombres.getText(),
-                            Apellido1.getText(),
-                            Apellido2.getText(),
-                            Integer.parseInt(DD.getText()),
-                            Integer.parseInt(MM.getText()),
-                            Integer.parseInt(AAAA.getText())
-                    ));
-                    Last ++;
-                    Texto5.setText("RFC: " + Historial.get(Last).CalcularRFC());
-                }
+        Calcular.addActionListener(_ -> {
+            if ((Nombres.getText().isEmpty()) || (Apellido1.getText().isEmpty()) || (Apellido2.getText().isEmpty()) ||
+            (DD.getText().isEmpty()) || (MM.getText().isEmpty()) || (AAAA.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null,"Error: Informacion Faltante");
+            } else {
+                Historial.add(new Registro(
+                        Nombres.getText(),
+                        Apellido1.getText(),
+                        Apellido2.getText(),
+                        Integer.parseInt(DD.getText()),
+                        Integer.parseInt(MM.getText()),
+                        Integer.parseInt(AAAA.getText())
+                ));
+                Nombres.setText(""); Apellido1.setText(""); Apellido2.setText(""); DD.setText(""); MM.setText(""); AAAA.setText("");
+                Last ++;
+                Texto5.setText("RFC: " + Historial.get(Last).CalcularRFC());
             }
         });
 

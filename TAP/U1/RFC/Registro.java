@@ -15,6 +15,15 @@ public class Registro {
         RFC = "";
     }
 
+    public Registro(String nombres, String apellido1, String apellido2, int DD, int MM, int AAAA) {
+        Nombres = nombres;
+        Apellido1 = apellido1;
+        Apellido2 = apellido2;
+        this.DD = DD;
+        this.MM = MM;
+        this.AAAA = AAAA;
+    }
+
     public String getNombres() {
         return Nombres;
     }
@@ -74,11 +83,11 @@ public class Registro {
     public String CalcularRFC(){
         RFC = "";
         RFC += Apellido1.charAt(0);
-        RFC += Apellido1.charAt(1);
+        RFC += Apellido1.toUpperCase().charAt(1);
         RFC += Apellido2.charAt(0);
         RFC += Nombres.charAt(0);
-        RFC += String.valueOf(AAAA).charAt(String.valueOf(AAAA).length()-1);
         RFC += String.valueOf(AAAA).charAt(String.valueOf(AAAA).length()-2);
+        RFC += String.valueOf(AAAA).charAt(String.valueOf(AAAA).length()-1);
         if (MM < 10) {
             RFC += "0";
             RFC += MM;
@@ -91,6 +100,7 @@ public class Registro {
         } else {
             RFC += String.valueOf(DD);
         }
+        RFC += "1H0";
         return RFC;
     }
 }

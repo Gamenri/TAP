@@ -1,10 +1,15 @@
 package RFC;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class RFC {
-    JFrame App = new JFrame();
-
+    private final JFrame App = new JFrame();
+    private ArrayList<Registro> Historial = new ArrayList<>();
+    private int Last = -1;
 
     RFC() {
         App.setTitle("RFC");
@@ -15,12 +20,12 @@ public class RFC {
     }
 
     // 6 Campos
-    JTextField Nombres = new JTextField();
-    JTextField Apellido1 = new JTextField();
-    JTextField Apellido2 = new JTextField();
-    JTextField DD = new JTextField();
-    JTextField MM = new JTextField();
-    JTextField AAAA = new JTextField();
+    JTextField Nombres = new JTextField("");
+    JTextField Apellido1 = new JTextField("");
+    JTextField Apellido2 = new JTextField("");
+    JTextField DD = new JTextField("");
+    JTextField MM = new JTextField("");
+    JTextField AAAA = new JTextField("");
 
     // 6 Etiquetas
     JLabel TextoSuperior = new JLabel("Calculadora de RFC");
@@ -31,7 +36,7 @@ public class RFC {
     JLabel Texto5 = new JLabel("");
 
     // 2 Botones
-    JButton Calcular = new JButton();
+    JButton Calcular = new JButton("Calcular");
 
     public void Armar() {
         App.add(Nombres);
@@ -47,6 +52,68 @@ public class RFC {
         App.add(Texto3);
         App.add(Texto4);
         App.add(Texto5);
+
+        App.add(Calcular);
+
+        TextoSuperior.setBounds(30,30,400,40);
+        TextoSuperior.setFont(new Font("Arial",Font.BOLD,40));
+
+        Font FTextos = new Font("Arial", Font.PLAIN,25);
+
+        Texto1.setBounds(30,130,220,50);
+        Texto1.setFont(FTextos);
+        Nombres.setBounds(250,130,420,45);
+        Nombres.setFont(FTextos);
+
+        Texto2.setBounds(30,180,220,50);
+        Texto2.setFont(FTextos);
+        Apellido1.setBounds(250,180,420,45);
+        Apellido1.setFont(FTextos);
+
+        Texto3.setBounds(30,230,220,50);
+        Texto3.setFont(FTextos);
+        Apellido2.setBounds(250,230,420,45);
+        Apellido2.setFont(FTextos);
+
+        Texto4.setBounds(30,280,450,50);
+        Texto4.setFont(FTextos);
+        DD.setBounds(480,280,50,45);
+        DD.setHorizontalAlignment(JTextField.CENTER);
+        DD.setFont(FTextos);
+        MM.setBounds(535,280,50,45);
+        MM.setHorizontalAlignment(JTextField.CENTER);
+        MM.setFont(FTextos);
+        AAAA.setBounds(590,280,80,45);
+        AAAA.setHorizontalAlignment(JTextField.CENTER);
+        AAAA.setFont(FTextos);
+
+        Calcular.setBounds(30,335,640,45);
+        Calcular.setFont(new Font("Arial", Font.PLAIN,20));
+
+        Texto5.setBounds(30,385,640,50);
+        Texto5.setFont(FTextos);
+        Texto5.setHorizontalAlignment(JLabel.CENTER);
+
+        Calcular.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if ((Nombres.getText().equals("")) || (Apellido1.getText().equals("")) || (Apellido2.getText().equals("")) ||
+                (DD.getText().equals("")) || (MM.getText().equals("")) || (AAAA.getText().equals(""))) {
+                    JOptionPane.showMessageDialog(null,"Error: Informacion Faltante");
+                } else {
+                    Historial.add(new Registro(
+                            Nombres.getText(),
+                            Apellido1.getText(),
+                            Apellido2.getText(),
+                            Integer.parseInt(DD.getText()),
+                            Integer.parseInt(MM.getText()),
+                            Integer.parseInt(AAAA.getText())
+                    ));
+                    Last ++;
+                    Texto5.setText("RFC: " + Historial.get(Last).CalcularRFC());
+                }
+            }
+        });
 
         App.setVisible(true);
     }
